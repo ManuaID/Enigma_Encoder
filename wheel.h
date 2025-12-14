@@ -11,13 +11,15 @@
 
 class wheel {
     public:
-        char wheel1[24];
-        char wheel2[24];
-        char wheel3[24];
+        int wheel1[24];
+        int wheel2[24];
+        int wheel3[24];
 
         wheel();
         void init();
         void init(std::string filename);
+
+        void print_wheel();
 
     private:
         bool read_wheel_from_txt(std::string file_name);
@@ -54,20 +56,34 @@ void wheel::random_wheel_generator() {
 
     std::ofstream o_file(oss.str());
 
-    for(int i = 0; i < 24; ++i) {
-        int temp = rand() % 24 + 1;
-        if(std::find(vec_exists.begin(), vec_exists.end(), temp) == vec_exists.end()) {
-            vec_exists.push_back(temp);
-            wheel1[i] = temp;
+
+    for(int i = 0; i < 3; ++i) {       
+        int cur_array[24]; 
+        for(int j = 0; j < 24; ++j) {
+            int temp = rand() % 24 + 1;
+            if(std::find(vec_exists.begin(), vec_exists.end(), temp) == vec_exists.end()) {
+                cur_array[j] = temp;
+                vec_exists.push_back(temp);
+            }
+            else {
+                j--;
+            }
         }
-        else {
-            i--;
+
+        if(i == 0) {
+            std::copy(std::begin(cur_array), std::end(cur_array), std::begin(wheel1));
         }
+        else if(i == 1) {
+            std::copy(std::begin(cur_array), std::end(cur_array), std::begin(wheel2));
+        }
+        else if(i == 2) {
+            std::copy(std::begin(cur_array), std::end(cur_array), std::begin(wheel3));
+        }
+    
+        vec_exists.clear();
     }
 
-    // for(auto c: vec_exists) {
-    //     std::cout << c << std::endl;
-    // }
+    
 }
 
 std::vector<int> init_vector_check() {
@@ -77,3 +93,22 @@ std::vector<int> init_vector_check() {
     }
     return temp;
 };
+
+void wheel::print_wheel() {
+    std::cout << "First array" << std::endl;
+    for(auto c: wheel1) {
+        std::cout << c << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Second array" << std::endl;
+    for(auto c: wheel2) {
+        std::cout << c << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Third array" << std::endl;
+    for(auto c: wheel3) {
+        std::cout << c << " ";
+    }
+}
