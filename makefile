@@ -7,5 +7,8 @@ TARGET = main
 default:
 	${CXX} ${CXXFLAGS} ${SOURCE} -o ${TARGET}
 
+test:
+	clang++ -g -O0 -o ${TARGET} ${SOURCE}
+
 clean:
 	rm -rf ${TARGET}
