@@ -1,0 +1,5 @@
+class plugboard {
+    public:
+        
+    private:
+};
