@@ -1,7 +1,10 @@
 #include <iostream>
-#include "wheel.h"
+#include "enigma_info.h"
 int main(int argc, char* argv[]) {
-    wheel Wheel;
+    enigma_info enigma;
+    wheel Wheel = enigma.Wheel;
+    plugboard PB = enigma.PB;
+    
     if(argc > 1) {
         std::string filename = argv[1];
         Wheel.init(filename);
@@ -9,5 +12,6 @@ int main(int argc, char* argv[]) {
     else {
         Wheel.init();
     }
+
     return 0;
 }
